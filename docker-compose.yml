@@ -10,24 +10,24 @@ volumes:
 
 services:
   owncloud:
-    image: owncloud/server:$VERSION
+    image: owncloud/server:{{ OWNCLOUD_VERSION }}
     container_name: owncloud_server
     restart: always
     ports:
-      - $PORT:8080
+      - {{ OWNCLOUD_PORT }}:8080
     depends_on:
       - mariadb
       - redis
     environment:
-      - OWNCLOUD_DOMAIN=localhost
-      - OWNCLOUD_TRUSTED_DOMAINS=$your.domain.com
+      - OWNCLOUD_DOMAIN={{ OWNCLOUD_DOMAIN }}
+      - OWNCLOUD_TRUSTED_DOMAINS={{ OWNCLOUD_TRUSTED_DOMAINS }}
       - OWNCLOUD_DB_TYPE=mysql
       - OWNCLOUD_DB_NAME=owncloud
       - OWNCLOUD_DB_USERNAME=owncloud
       - OWNCLOUD_DB_PASSWORD=owncloud
       - OWNCLOUD_DB_HOST=mariadb
       - OWNCLOUD_ADMIN_USERNAME=admin
-      - OWNCLOUD_ADMIN_PASSWORD=$ADMINPASSWORD
+      - OWNCLOUD_ADMIN_PASSWORD={{ ADMINPWD }}
       - OWNCLOUD_MYSQL_UTF8MB4=true
       - OWNCLOUD_REDIS_ENABLED=true
       - OWNCLOUD_REDIS_HOST=redis
